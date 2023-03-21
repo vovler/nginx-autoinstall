@@ -19,6 +19,7 @@ LUA_RESTYCORE_VER=${LUA_RESTYCORE_VER:-0.1.25}
 LUA_RESTYLRUCACHE_VER=${LUA_RESTYLRUCACHE_VER:-0.13}
 GEOIP2_ACCOUNT_ID=${GEOIP2_ACCOUNT_ID:-842336}
 GEOIP2_LICENSE_KEY=${GEOIP2_LICENSE_KEY:-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}
+MYSQL_ROOT_PASSWORD=$(LC_ALL=C tr -dc 'A-Za-z0-9!@#$%^&*()_+-=' < /dev/urandom | head -c 20)
 
 # Define options
 NGINX_OPTIONS=${NGINX_OPTIONS:-"
@@ -68,7 +69,7 @@ mkdir -p /usr/local/src/nginx/modules
 # Dependencies
 apt-get update;
 apt-get upgrade -y;
-apt-get install -y software-properties-common build-essential ca-certificates wget curl libpcre3 libpcre3-dev autoconf unzip automake libtool tar git libssl-dev zlib1g-dev uuid-dev lsb-release libxml2-dev libxslt1-dev cmake libatomic-ops-dev
+apt-get install -y debconf-utils software-properties-common build-essential ca-certificates wget curl libpcre3 libpcre3-dev autoconf unzip automake libtool tar git libssl-dev zlib1g-dev uuid-dev lsb-release libxml2-dev libxslt1-dev cmake libatomic-ops-dev
 
 	
 # GeoIPUpdate
@@ -348,6 +349,28 @@ sudo add-apt-repository -y ppa:ondrej/php;
 sudo apt -y update;
 sudo apt install -y php8.2 php8.2-common php8.2-cli php8.2-fpm php8.2-opcache php8.2-mysql php8.2-curl php8.2-intl php8.2-xml php8.2-mbstring php8.2-zip;
 
+
+wget https://repo.percona.com/apt/percona-release_latest.generic_all.deb;
+sudo dpkg -i percona-release_latest.generic_all.deb;
+sudo percona-release setup ps80;
+sudo apt update;
+sudo systemctl start mysql;
+sudo systemctl enable mysql;
+
+echo "${MYSQL_ROOT_PASSWORD}";
+echo "percona-server-server-8.0 percona-server-server/root_password password ${MYSQL_ROOT_PASSWORD}" | sudo debconf-set-selections
+echo "percona-server-server-8.0 percona-server-server/root_password_again password ${MYSQL_ROOT_PASSWORD}" | sudo debconf-set-selections
+
+sudo apt install percona-server-server
+
+mysql --user=root --password="${MYSQL_ROOT_PASSWORD}" --execute="UPDATE mysql.user SET Password=PASSWORD('${MYSQL_ROOT_PASSWORD}') WHERE User='root';"
+mysql --user=root --password="${MYSQL_ROOT_PASSWORD}" --execute="DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');"
+mysql --user=root --password="${MYSQL_ROOT_PASSWORD}" --execute="DELETE FROM mysql.user WHERE User='';"
+mysql --user=root --password="${MYSQL_ROOT_PASSWORD}" --execute="DELETE FROM mysql.db WHERE Db='test' OR Db='test\_%';"
+mysql --user=root --password="${MYSQL_ROOT_PASSWORD}" --execute="FLUSH PRIVILEGES;"
+sudo apt install percona-xtrabackup-80
+
 # We're done !
+echo "MySQL Password: ${MYSQL_ROOT_PASSWORD}";
 echo "Installation done."
 exit
