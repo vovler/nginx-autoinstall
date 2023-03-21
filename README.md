@@ -1,5 +1,5 @@
 ## What is this
-Basically latest nginx, php, workman, percona_mysql + xtrabackup, letsencrypt via acme.sh and csf for ubuntu22.04
+Installs nginx, php, workman, percona_mysql + xtrabackup, letsencrypt via acme.sh and csf for ubuntu22.04
 
 ## Usage
 
