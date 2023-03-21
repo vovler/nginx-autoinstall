@@ -356,8 +356,6 @@ sudo dpkg -i percona-release_latest.generic_all.deb;
 sudo apt update;
 sudo percona-release setup ps80;
 sudo apt update;
-sudo systemctl start mysql;
-sudo systemctl enable mysql;
 
 echo "${MYSQL_ROOT_PASSWORD}";
 echo "percona-server-server-8.0 percona-server-server/root_password password '${MYSQL_ROOT_PASSWORD}'" | sudo debconf-set-selections
@@ -369,7 +367,10 @@ mysql --user=root --password="${MYSQL_ROOT_PASSWORD}" --execute="DELETE FROM mys
 mysql --user=root --password="${MYSQL_ROOT_PASSWORD}" --execute="DELETE FROM mysql.user WHERE User='';"
 mysql --user=root --password="${MYSQL_ROOT_PASSWORD}" --execute="DELETE FROM mysql.db WHERE Db='test' OR Db='test\_%';"
 mysql --user=root --password="${MYSQL_ROOT_PASSWORD}" --execute="FLUSH PRIVILEGES;"
-sudo apt install -y percona-xtrabackup-80;
+sudo DEBIAN_FRONTEND=noninteractive apt install -y percona-xtrabackup-80;
+
+sudo systemctl start mysql;
+sudo systemctl enable mysql;
 
 # We're done !
 echo "MySQL Password: ${MYSQL_ROOT_PASSWORD}";
