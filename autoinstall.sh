@@ -68,7 +68,7 @@ mkdir -p /usr/local/src/nginx/modules
 # Dependencies
 apt-get update;
 apt-get upgrade -y;
-apt-get install -y build-essential ca-certificates wget curl libpcre3 libpcre3-dev autoconf unzip automake libtool tar git libssl-dev zlib1g-dev uuid-dev lsb-release libxml2-dev libxslt1-dev cmake libatomic-ops-dev
+apt-get install -y software-properties-common build-essential ca-certificates wget curl libpcre3 libpcre3-dev autoconf unzip automake libtool tar git libssl-dev zlib1g-dev uuid-dev lsb-release libxml2-dev libxslt1-dev cmake libatomic-ops-dev
 
 	
 # GeoIPUpdate
@@ -342,6 +342,11 @@ fi
 
 # Removing temporary Nginx and modules files
 rm -r /usr/local/src/nginx
+
+#Installing PHP
+sudo add-apt-repository -y ppa:ondrej/php;
+sudo apt -y update;
+sudo apt install -y php8.2 php8.2-common php8.2-cli php8.2-fpm php8.2-opcache php8.2-mysql php8.2-curl php8.2-intl php8.2-xml php8.2-mbstring php8.2-zip;
 
 # We're done !
 echo "Installation done."
