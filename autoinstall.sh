@@ -145,7 +145,7 @@ fi
 # Download GeoIP.conf for use with geoipupdate
 if [[ ! -f /usr/local/etc/GeoIP.conf ]]; then
 	cd /usr/local/etc || exit 1
-	wget https://raw.githubusercontent.com/vovler/nginx-autoinstall/master/conf/GeoIP.conf
+	wget https://raw.githubusercontent.com/vovler/nginx-php8-workman-percona_mysql-letsencrypt-csf-ubuntu22.04/master/conf/GeoIP.conf
 	sed -i "s/YOUR_ACCOUNT_ID_HERE/${GEOIP2_ACCOUNT_ID}/g" GeoIP.conf
 	sed -i "s/YOUR_LICENSE_KEY_HERE/${GEOIP2_LICENSE_KEY}/g" GeoIP.conf
 else
@@ -218,7 +218,7 @@ cd nginx-${NGINX_VER} || exit 1
 if [[ ! -e /etc/nginx/nginx.conf ]]; then
 	mkdir -p /etc/nginx
 	cd /etc/nginx || exit 1
-	wget https://raw.githubusercontent.com/vovler/nginx-autoinstall/master/conf/nginx.conf
+	wget https://raw.githubusercontent.com/vovler/nginx-php8-workman-percona_mysql-letsencrypt-csf-ubuntu22.04/master/conf/nginx.conf
 fi
 cd /usr/local/src/nginx/nginx-${NGINX_VER} || exit 1
 
@@ -302,14 +302,14 @@ strip -s /usr/sbin/nginx
 # Using the official systemd script and logrotate conf from nginx.org
 if [[ ! -e /lib/systemd/system/nginx.service ]]; then
 	cd /lib/systemd/system/ || exit 1
-	wget https://raw.githubusercontent.com/vovler/nginx-autoinstall/master/conf/nginx.service
+	wget https://raw.githubusercontent.com/vovler/nginx-php8-workman-percona_mysql-letsencrypt-csf-ubuntu22.04/master/conf/nginx.service
 	# Enable nginx start at boot
 	systemctl enable nginx
 fi
 
 if [[ ! -e /etc/logrotate.d/nginx ]]; then
 	cd /etc/logrotate.d/ || exit 1
-	wget https://raw.githubusercontent.com/vovler/nginx-autoinstall/master/conf/nginx-logrotate -O nginx
+	wget https://raw.githubusercontent.com/vovler/nginx-php8-workman-percona_mysql-letsencrypt-csf-ubuntu22.04/master/conf/nginx-logrotate -O nginx
 fi
 
 # Nginx's cache directory is not created by default
