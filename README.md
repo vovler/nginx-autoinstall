@@ -3,5 +3,5 @@
 Just download and execute the script :
 
 ```sh
-rm nginx-autoinstall.sh; wget -qO nginx-autoinstall.sh https://raw.githubusercontent.com/vovler/nginx-autoinstall/master/nginx-autoinstall.sh && chmod +x nginx-autoinstall.sh && ./nginx-autoinstall.sh;
+rm autoinstall.sh; wget -qO autoinstall.sh https://raw.githubusercontent.com/vovler/nginx-php8-workman-percona_mysql-letsencrypt-csf-ubuntu22.04/master/autoinstall.sh && chmod +x autoinstall.sh && ./autoinstall.sh;
 ```
