@@ -349,9 +349,10 @@ sudo add-apt-repository -y ppa:ondrej/php;
 sudo apt -y update;
 sudo apt install -y php8.2 php8.2-common php8.2-cli php8.2-fpm php8.2-opcache php8.2-mysql php8.2-curl php8.2-intl php8.2-xml php8.2-mbstring php8.2-zip;
 
-
+cd ~
 wget https://repo.percona.com/apt/percona-release_latest.generic_all.deb;
 sudo dpkg -i percona-release_latest.generic_all.deb;
+sudo apt update;
 sudo percona-release setup ps80;
 sudo apt update;
 sudo systemctl start mysql;
@@ -361,14 +362,14 @@ echo "${MYSQL_ROOT_PASSWORD}";
 echo "percona-server-server-8.0 percona-server-server/root_password password ${MYSQL_ROOT_PASSWORD}" | sudo debconf-set-selections
 echo "percona-server-server-8.0 percona-server-server/root_password_again password ${MYSQL_ROOT_PASSWORD}" | sudo debconf-set-selections
 
-sudo apt install percona-server-server
+sudo apt install -y percona-server-server;
 
 mysql --user=root --password="${MYSQL_ROOT_PASSWORD}" --execute="UPDATE mysql.user SET Password=PASSWORD('${MYSQL_ROOT_PASSWORD}') WHERE User='root';"
 mysql --user=root --password="${MYSQL_ROOT_PASSWORD}" --execute="DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');"
 mysql --user=root --password="${MYSQL_ROOT_PASSWORD}" --execute="DELETE FROM mysql.user WHERE User='';"
 mysql --user=root --password="${MYSQL_ROOT_PASSWORD}" --execute="DELETE FROM mysql.db WHERE Db='test' OR Db='test\_%';"
 mysql --user=root --password="${MYSQL_ROOT_PASSWORD}" --execute="FLUSH PRIVILEGES;"
-sudo apt install percona-xtrabackup-80
+sudo apt install -y percona-xtrabackup-80;
 
 # We're done !
 echo "MySQL Password: ${MYSQL_ROOT_PASSWORD}";
