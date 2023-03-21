@@ -57,7 +57,7 @@ NGINX_MODULES=${NGINX_MODULES:-"--with-compat \
 
 
 clear
-	
+export DEBIAN_FRONTEND=noninteractive;	
 
 # Cleanup
 # The directory should be deleted at the end of the script, but in case it fails
