@@ -1,5 +1,14 @@
 ## What is this
-Installs nginx, php, workman, percona_mysql + xtrabackup, letsencrypt via acme.sh and csf for ubuntu22.04
+For Ubuntu 22.04, it installs: 
+- Nginx
+- PHP 8 + PHP-FPM
+- Workman
+- Percona MySQL
+- Xtrabackup
+- Acme.sh for LetsEncrypt
+- CSF
+- Google TCP BBR 
+- Other System Optimizations
 
 ## Usage
 
