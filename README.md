@@ -1,4 +1,4 @@
-## What is this
+### API
 For Ubuntu 22.04, it installs: 
 - Nginx
 - PHP 8 + PHP-FPM
@@ -9,6 +9,24 @@ For Ubuntu 22.04, it installs:
 - CSF
 - Google TCP BBR 
 - Other System Optimizations
+
+### CDN
+- Nginx
+- PHP 8 + PHP-FPM
+- Workman
+
+### KMS
+- Nginx
+- PHP 8 + PHP-FPM
+- Workman
+
+### Static
+- Nginx
+- PHP 8
+
+### Mail
+
+### App
 
 ## Usage
 
