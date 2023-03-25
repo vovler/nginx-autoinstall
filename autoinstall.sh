@@ -336,7 +336,7 @@ rm -r /usr/local/src/nginx
 #Installing PHP
 sudo add-apt-repository -y ppa:ondrej/php;
 sudo apt -y update;
-sudo DEBIAN_FRONTEND=noninteractive apt install -y php8.2 php8.2-common php8.2-cli php8.2-fpm php8.2-opcache php8.2-mysql php8.2-curl php8.2-intl php8.2-xml php8.2-mbstring php8.2-zip;
+sudo DEBIAN_FRONTEND=noninteractive apt install -y php8.2 php8.2-common php8.2-cli php8.2-fpm php8.2-opcache php8.2-mysql php8.2-curl php8.2-intl php8.2-xml php8.2-mbstring php8.2-zip php8.2-gd php8.2-bcmath php8.2-bz2;
 
 cd ~
 export DEBIAN_FRONTEND=noninteractive;	
